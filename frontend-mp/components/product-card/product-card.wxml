@@ -1,0 +1,31 @@
+<!--components/product-card/product-card.wxml-->
+<view class="product-card {{mode}}" bindtap="onTap">
+  <!-- 商品图片 -->
+  <view class="product-image-wrapper">
+    <image 
+      class="product-image" 
+      src="{{product.imageUrl}}" 
+      mode="aspectFill"
+      lazy-load
+    />
+    <view wx:if="{{product.tags[0]}}" class="product-tag">{{product.tags[0]}}</view>
+  </view>
+  
+  <!-- 商品信息 -->
+  <view class="product-info">
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-subtitle">{{product.subtitle}}</text>
+    
+    <view class="product-bottom">
+      <view class="product-price">
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{product.price}}</text>
+        <text wx:if="{{product.originalPrice}}" class="price-original">¥{{product.originalPrice}}</text>
+      </view>
+      
+      <view wx:if="{{showCart}}" class="add-cart-btn" catchtap="onAddCart">
+        <text class="add-cart-icon">+</text>
+      </view>
+    </view>
+  </view>
+</view>

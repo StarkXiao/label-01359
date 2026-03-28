@@ -1,0 +1,42 @@
+<!--components/search-bar/search-bar.wxml-->
+<view class="search-bar" bindtap="onTap">
+  <!-- 返回按钮 -->
+  <view wx:if="{{showBack}}" class="back-btn" catchtap="onBack">
+    <text class="back-icon">‹</text>
+  </view>
+  
+  <!-- 搜索框 -->
+  <view class="search-input-wrapper">
+    <view class="search-icon">
+      <text class="icon-search">🔍</text>
+    </view>
+    
+    <input 
+      wx:if="{{!disabled}}"
+      class="search-input"
+      type="text"
+      placeholder="{{placeholder}}"
+      placeholder-class="search-placeholder"
+      value="{{inputValue}}"
+      focus="{{!disabled}}"
+      confirm-type="search"
+      bindinput="onInput"
+      bindfocus="onFocus"
+      bindblur="onBlur"
+      bindconfirm="onConfirm"
+    />
+    
+    <view wx:else class="search-placeholder-text">
+      <text>{{placeholder}}</text>
+    </view>
+    
+    <!-- 清除按钮 -->
+    <view 
+      wx:if="{{inputValue && !disabled}}" 
+      class="clear-btn" 
+      catchtap="onClear"
+    >
+      <text class="clear-icon">×</text>
+    </view>
+  </view>
+</view>

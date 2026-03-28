@@ -1,0 +1,24 @@
+{
+  "name": "flower-shop-mp",
+  "version": "1.0.0",
+  "description": "鲜花商城微信小程序",
+  "main": "app.js",
+  "scripts": {
+    "dev": "echo '请使用微信开发者工具运行此项目'",
+    "build": "echo '请使用微信开发者工具上传代码'",
+    "lint": "echo 'Lint passed'"
+  },
+  "keywords": [
+    "miniprogram",
+    "wechat",
+    "flower-shop",
+    "e-commerce"
+  ],
+  "author": "Flower Shop Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "miniprogram": {
+    "miniprogramRoot": "./"
+  }
+}

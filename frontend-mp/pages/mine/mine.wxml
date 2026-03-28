@@ -1,0 +1,73 @@
+<!--pages/mine/mine.wxml - 我的页面-->
+<view class="page-container">
+  <!-- 未登录状态 - 参考购物车空状态样式 -->
+  <view wx:if="{{!isLogin}}" class="not-login-container">
+    <view class="empty-state">
+      <view class="empty-icon">👤</view>
+      <text class="empty-title">您还未登录</text>
+      <text class="empty-desc">登录后享受更多会员权益</text>
+      <view class="empty-btn" bindtap="doLogin">
+        <text>立即登录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已登录状态 -->
+  <view wx:else>
+    <!-- 用户信息区域 -->
+    <view class="user-section">
+      <view class="user-content">
+        <!-- 头像和信息 -->
+        <view class="user-info">
+          <view class="avatar-wrapper">
+            <image 
+              class="avatar" 
+              src="{{userInfo.avatar}}" 
+              mode="aspectFill"
+            />
+          </view>
+          <view class="user-detail">
+            <text class="nickname">{{userInfo.nickname}}</text>
+            <text class="phone">{{userInfo.phone}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 订单区域 -->
+    <view class="order-section">
+      <view class="section-header">
+        <text class="section-title">我的订单</text>
+        <view class="section-more" bindtap="onViewAllOrders">
+          <text>全部订单</text>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+      <view class="order-menu">
+        <view 
+          wx:for="{{orderMenus}}" 
+          wx:key="id"
+          class="order-item"
+          bindtap="onOrderMenuTap"
+          data-item="{{item}}"
+        >
+          <view class="order-icon-wrapper">
+            <text class="order-icon">{{item.icon}}</text>
+            <view wx:if="{{item.count > 0}}" class="order-badge">{{item.count}}</view>
+          </view>
+          <text class="order-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 退出登录 -->
+    <view class="logout-section">
+      <view class="logout-btn" bindtap="onLogout">
+        <text>退出登录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="bottom-safe-area"></view>
+</view>

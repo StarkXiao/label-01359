@@ -1,0 +1,57 @@
+<!--pages/category/category.wxml - 分类页-->
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-wrapper">
+    <search-bar placeholder="搜索鲜花、花束..." bind:tap="onSearchTap" />
+  </view>
+
+  <!-- 分类内容 -->
+  <view class="category-content">
+    <!-- 左侧一级分类 -->
+    <scroll-view class="category-left" scroll-y enhanced show-scrollbar="{{false}}">
+      <view 
+        wx:for="{{categoryList}}" 
+        wx:key="id"
+        class="category-item {{currentCategoryIndex === index ? 'active' : ''}}"
+        bindtap="onCategoryTap"
+        data-index="{{index}}"
+      >
+        <view class="category-indicator" wx:if="{{currentCategoryIndex === index}}"></view>
+        <image class="category-icon" src="{{item.icon}}" mode="aspectFit" />
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧二级分类 -->
+    <scroll-view class="category-right" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- 分类标题 -->
+      <view class="sub-category-header" wx:if="{{currentCategory}}">
+        <text class="sub-category-title">{{currentCategory.name}}</text>
+        <text class="sub-category-desc">精选好花，用心传递</text>
+      </view>
+
+      <!-- 二级分类网格 -->
+      <view class="sub-category-grid">
+        <view 
+          wx:for="{{subCategories}}" 
+          wx:key="id"
+          class="sub-category-item"
+          bindtap="onSubCategoryTap"
+          data-item="{{item}}"
+        >
+          <view class="sub-category-icon-wrapper">
+            <image class="sub-category-icon" src="{{item.icon}}" mode="aspectFit" />
+          </view>
+          <text class="sub-category-name">{{item.name}}</text>
+        </view>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-overlay">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

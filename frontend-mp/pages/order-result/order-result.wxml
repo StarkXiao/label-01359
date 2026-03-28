@@ -1,0 +1,37 @@
+<!--pages/order-result/order-result.wxml - 支付结果页-->
+<view class="page-container">
+  <!-- 结果图标 -->
+  <view class="result-section">
+    <view class="result-icon {{status === 'success' ? 'success' : 'fail'}}">
+      <text>{{status === 'success' ? '✓' : '×'}}</text>
+    </view>
+    <text class="result-title">{{status === 'success' ? '支付成功' : '支付失败'}}</text>
+    <text class="result-amount">¥{{order.payAmount}}</text>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class="info-section">
+    <view class="info-row">
+      <text class="info-label">订单编号</text>
+      <text class="info-value">{{order.id}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">支付方式</text>
+      <text class="info-value">微信支付</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">支付时间</text>
+      <text class="info-value">{{payTimeText}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <view class="action-btn primary" bindtap="onViewOrder">
+      <text>查看订单</text>
+    </view>
+    <view class="action-btn" bindtap="onBackHome">
+      <text>返回首页</text>
+    </view>
+  </view>
+</view>

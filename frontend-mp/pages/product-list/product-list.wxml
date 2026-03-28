@@ -1,0 +1,89 @@
+<!--pages/product-list/product-list.wxml - 商品列表页-->
+<view class="page-container">
+  <!-- 排序栏 -->
+  <view class="sort-bar">
+    <view 
+      class="sort-item {{sortType === 'default' ? 'active' : ''}}"
+      bindtap="onSortChange"
+      data-type="default"
+    >
+      <text>综合</text>
+    </view>
+    <view 
+      class="sort-item {{sortType === 'sales' ? 'active' : ''}}"
+      bindtap="onSortChange"
+      data-type="sales"
+    >
+      <text>销量</text>
+    </view>
+    <view 
+      class="sort-item {{sortType === 'price-asc' || sortType === 'price-desc' ? 'active' : ''}}"
+      bindtap="onSortChange"
+      data-type="price"
+    >
+      <text>价格</text>
+      <view class="sort-arrow">
+        <text class="arrow-up {{sortType === 'price-asc' ? 'active' : ''}}">↑</text>
+        <text class="arrow-down {{sortType === 'price-desc' ? 'active' : ''}}">↓</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 错误状态 -->
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-icon">😕</text>
+    <text class="error-text">{{error}}</text>
+    <view class="retry-btn" bindtap="onRetry">
+      <text>重新加载</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{isEmpty}}" class="empty-state">
+    <text class="empty-icon">🌸</text>
+    <text class="empty-title">暂无商品</text>
+    <text class="empty-desc">该分类下暂无商品，看看其他分类吧</text>
+  </view>
+
+  <!-- 商品列表 -->
+  <scroll-view wx:else class="product-list" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="product-grid">
+      <view 
+        wx:for="{{productList}}" 
+        wx:key="id"
+        class="product-item"
+        bindtap="onProductTap"
+        data-item="{{item}}"
+      >
+        <view class="product-image-wrapper">
+          <image class="product-image" src="{{item.image}}" mode="aspectFill" />
+          <view wx:if="{{item.tag}}" class="product-tag">{{item.tag}}</view>
+        </view>
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-subtitle">{{item.subtitle}}</text>
+          <view class="product-bottom">
+            <view class="product-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+              <text wx:if="{{item.originalPrice}}" class="price-original">¥{{item.originalPrice}}</text>
+            </view>
+            <text class="product-sales">{{item.salesText}}</text>
+          </view>
+          <view class="add-cart-btn" catchtap="onAddToCart" data-item="{{item}}">
+            <text>+</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="list-footer">
+      <text>— 已经到底了 —</text>
+    </view>
+  </scroll-view>
+</view>

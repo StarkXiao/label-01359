@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "鲜花商城",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "search-bar": "/components/search-bar/search-bar",
+    "product-card": "/components/product-card/product-card"
+  }
+}

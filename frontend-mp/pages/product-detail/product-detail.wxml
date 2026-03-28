@@ -1,0 +1,118 @@
+<!--pages/product-detail/product-detail.wxml - 商品详情页-->
+<view class="page-container" wx:if="{{product}}">
+  <!-- 商品图片轮播 -->
+  <view class="image-section">
+    <swiper 
+      class="image-swiper"
+      indicator-dots="{{false}}"
+      autoplay="{{false}}"
+      circular
+      bindchange="onImageChange"
+    >
+      <swiper-item 
+        wx:for="{{product.images}}" 
+        wx:key="*this"
+        bindtap="onPreviewImage"
+      >
+        <image class="product-image" src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+    <view class="image-indicator">
+      <text>{{currentImageIndex + 1}}/{{product.images.length}}</text>
+    </view>
+  </view>
+
+  <!-- 商品信息 -->
+  <view class="info-section">
+    <view class="price-row">
+      <view class="price">
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{product.price}}</text>
+      </view>
+      <text class="original-price">¥{{product.originalPrice}}</text>
+      <view class="discount-tag">省¥{{product.originalPrice - product.price}}</view>
+    </view>
+    
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-subtitle">{{product.subtitle}}</text>
+    
+    <view class="tags-row">
+      <view wx:for="{{product.tags}}" wx:key="*this" class="tag">{{item}}</view>
+    </view>
+    
+    <view class="stats-row">
+      <text class="stat-item">销量 {{product.sales}}</text>
+      <text class="stat-divider">|</text>
+      <text class="stat-item">评分 {{product.rating}}</text>
+      <text class="stat-divider">|</text>
+      <text class="stat-item">库存 {{product.stock}}</text>
+    </view>
+  </view>
+
+  <!-- 商品描述 -->
+  <view class="desc-section">
+    <view class="section-title">商品描述</view>
+    <text class="desc-content">{{product.description}}</text>
+  </view>
+
+  <!-- 服务保障 -->
+  <view class="service-section">
+    <view class="section-title">服务保障</view>
+    <view class="service-list">
+      <view class="service-item">
+        <text class="service-icon">✓</text>
+        <text>新鲜直送</text>
+      </view>
+      <view class="service-item">
+        <text class="service-icon">✓</text>
+        <text>品质保证</text>
+      </view>
+      <view class="service-item">
+        <text class="service-icon">✓</text>
+        <text>准时送达</text>
+      </view>
+      <view class="service-item">
+        <text class="service-icon">✓</text>
+        <text>售后无忧</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-placeholder"></view>
+
+  <!-- 底部操作栏 - 简化版 -->
+  <view class="action-bar safe-area-bottom">
+    <view class="action-left">
+      <view class="cart-btn" bindtap="onGoCart">
+        <text class="cart-icon">🛒</text>
+        <text class="cart-text">购物车</text>
+      </view>
+    </view>
+    
+    <view class="action-right">
+      <view class="quantity-control">
+        <view class="quantity-btn decrease" bindtap="onDecrease">
+          <text>-</text>
+        </view>
+        <text class="quantity-value">{{quantity}}</text>
+        <view class="quantity-btn increase" bindtap="onIncrease">
+          <text>+</text>
+        </view>
+      </view>
+      
+      <view class="add-cart-btn" bindtap="onAddToCart">
+        <text>加入购物车</text>
+      </view>
+      <view class="buy-btn" bindtap="onBuyNow">
+        <text>立即购买</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view wx:if="{{loading}}" class="loading-overlay">
+  <view class="loading-spinner"></view>
+  <text class="loading-text">加载中...</text>
+</view>

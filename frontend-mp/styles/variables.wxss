@@ -1,0 +1,58 @@
+/* styles/variables.wxss - 样式变量定义 */
+
+/* 
+ * 主题色彩系统
+ * Primary: 玫瑰粉 #E91E63
+ * Secondary: 亮粉 #FF4081
+ * Background: 浅粉 #FFF8F9
+ */
+
+/* 由于小程序不支持 CSS 变量，这里作为注释文档 */
+
+/*
+--color-primary: #E91E63;
+--color-primary-light: #FCE4EC;
+--color-primary-dark: #C2185B;
+--color-secondary: #FF4081;
+--color-accent: #FF5722;
+
+--color-success: #4CAF50;
+--color-warning: #FF9800;
+--color-error: #F44336;
+--color-info: #2196F3;
+
+--color-text-primary: #333333;
+--color-text-secondary: #666666;
+--color-text-hint: #999999;
+--color-text-disabled: #CCCCCC;
+
+--color-background: #FFF8F9;
+--color-surface: #FFFFFF;
+--color-border: #EEEEEE;
+--color-divider: #F5F5F5;
+
+--font-size-xs: 20rpx;
+--font-size-sm: 24rpx;
+--font-size-base: 28rpx;
+--font-size-md: 32rpx;
+--font-size-lg: 36rpx;
+--font-size-xl: 40rpx;
+--font-size-xxl: 48rpx;
+
+--spacing-xs: 8rpx;
+--spacing-sm: 16rpx;
+--spacing-base: 24rpx;
+--spacing-md: 32rpx;
+--spacing-lg: 48rpx;
+--spacing-xl: 64rpx;
+
+--radius-sm: 8rpx;
+--radius-base: 16rpx;
+--radius-lg: 24rpx;
+--radius-xl: 32rpx;
+--radius-full: 9999rpx;
+
+--shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+--shadow-base: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+--shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
+*/

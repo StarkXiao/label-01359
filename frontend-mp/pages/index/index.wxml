@@ -1,0 +1,267 @@
+<!--pages/index/index.wxml - 首页-->
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-wrapper">
+    <search-bar placeholder="搜索鲜花、花束..." bind:tap="onSearchTap" />
+  </view>
+
+  <!-- 主内容区域 -->
+  <scroll-view 
+    class="main-content" 
+    scroll-y 
+    enhanced 
+    show-scrollbar="{{false}}"
+    refresher-enabled
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="onPullDownRefresh"
+  >
+    <!-- 轮播图 -->
+    <view class="banner-section">
+      <swiper 
+        class="banner-swiper"
+        indicator-dots="{{false}}"
+        autoplay
+        circular
+        interval="4000"
+        duration="500"
+        bindchange="onBannerChange"
+      >
+        <swiper-item 
+          wx:for="{{bannerList}}" 
+          wx:key="id"
+          bindtap="onBannerTap"
+          data-item="{{item}}"
+        >
+          <view class="banner-item">
+            <image 
+              class="banner-image" 
+              src="{{item.imageUrl}}" 
+              mode="aspectFill"
+            />
+            <view class="banner-overlay">
+              <text class="banner-title">{{item.title}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+      <!-- 自定义指示器 -->
+      <view class="banner-indicators">
+        <view 
+          wx:for="{{bannerList}}" 
+          wx:key="id"
+          class="indicator-dot {{currentBanner === index ? 'active' : ''}}"
+        />
+      </view>
+    </view>
+
+    <!-- 分类入口 -->
+    <view class="category-section">
+      <view class="category-grid">
+        <view 
+          wx:for="{{categoryEntries}}" 
+          wx:key="id"
+          class="category-item"
+          bindtap="onCategoryTap"
+          data-item="{{item}}"
+        >
+          <view class="category-icon-wrapper" style="background-color: {{item.bgColor}};">
+            <image class="category-icon" src="{{item.icon}}" mode="aspectFit" />
+          </view>
+          <text class="category-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 浪漫告白专区 -->
+    <view class="section romantic-section">
+      <view class="section-header">
+        <view class="section-title-wrapper">
+          <view class="section-icon romantic-icon">💕</view>
+          <text class="section-title">浪漫告白</text>
+        </view>
+      </view>
+      <view class="section-subtitle">用鲜花诉说爱意</view>
+      <scroll-view class="product-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="product-scroll-inner">
+          <view 
+            wx:for="{{romanticProducts}}" 
+            wx:key="id"
+            class="scroll-product-item"
+            bindtap="onProductTap"
+            data-item="{{item}}"
+          >
+            <view class="product-image-wrapper">
+              <image class="product-image" src="{{item.imageUrl}}" mode="aspectFill" />
+              <view wx:if="{{item.tags[0]}}" class="product-tag tag-hot">{{item.tags[0]}}</view>
+            </view>
+            <view class="product-info">
+              <text class="product-name">{{item.name}}</text>
+              <text class="product-subtitle">{{item.subtitle}}</text>
+              <view class="product-price-row">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.price}}</text>
+                <text class="price-original">¥{{item.originalPrice}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 生日热荐专区 -->
+    <view class="section birthday-section">
+      <view class="section-header">
+        <view class="section-title-wrapper">
+          <view class="section-icon birthday-icon">🎂</view>
+          <text class="section-title">生日热荐</text>
+        </view>
+      </view>
+      <view class="section-subtitle">送上最美的祝福</view>
+      <scroll-view class="product-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="product-scroll-inner">
+          <view 
+            wx:for="{{birthdayProducts}}" 
+            wx:key="id"
+            class="scroll-product-item"
+            bindtap="onProductTap"
+            data-item="{{item}}"
+          >
+            <view class="product-image-wrapper">
+              <image class="product-image" src="{{item.imageUrl}}" mode="aspectFill" />
+              <view wx:if="{{item.tags[0]}}" class="product-tag tag-birthday">{{item.tags[0]}}</view>
+            </view>
+            <view class="product-info">
+              <text class="product-name">{{item.name}}</text>
+              <text class="product-subtitle">{{item.subtitle}}</text>
+              <view class="product-price-row">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.price}}</text>
+                <text class="price-original">¥{{item.originalPrice}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 开业花篮专区 -->
+    <view class="section opening-section">
+      <view class="section-header">
+        <view class="section-title-wrapper">
+          <view class="section-icon opening-icon">🎊</view>
+          <text class="section-title">开业花篮</text>
+        </view>
+        <view class="section-more" bindtap="onViewMore" data-category="opening" data-title="开业花篮">
+          <text>更多</text>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+      <view class="section-subtitle">开业大吉 财源广进</view>
+      <view class="opening-grid">
+        <view 
+          wx:for="{{openingProducts}}" 
+          wx:key="id"
+          class="opening-item"
+          bindtap="onProductTap"
+          data-item="{{item}}"
+        >
+          <image class="opening-image" src="{{item.imageUrl}}" mode="aspectFill" />
+          <view class="opening-info">
+            <text class="opening-name">{{item.name}}</text>
+            <text class="opening-subtitle">{{item.subtitle}}</text>
+            <view class="opening-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+              <text class="price-original">¥{{item.originalPrice}}</text>
+            </view>
+          </view>
+          <view wx:if="{{item.tags[0]}}" class="opening-tag">{{item.tags[0]}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 祝福恭贺专区 -->
+    <view class="section blessing-section">
+      <view class="section-header">
+        <view class="section-title-wrapper">
+          <view class="section-icon blessing-icon">🎁</view>
+          <text class="section-title">祝福恭贺</text>
+        </view>
+        <view class="section-more" bindtap="onViewMore" data-category="blessing" data-title="祝福恭贺">
+          <text>更多</text>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+      <view class="section-subtitle">传递真挚的心意</view>
+      <view class="blessing-grid">
+        <view 
+          wx:for="{{blessingProducts}}" 
+          wx:key="id"
+          class="blessing-item"
+          bindtap="onProductTap"
+          data-item="{{item}}"
+        >
+          <image class="blessing-image" src="{{item.imageUrl}}" mode="aspectFill" />
+          <view class="blessing-content">
+            <text class="blessing-name">{{item.name}}</text>
+            <text class="blessing-subtitle">{{item.subtitle}}</text>
+            <view class="blessing-bottom">
+              <view class="blessing-price">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.price}}</text>
+              </view>
+              <view class="blessing-tag" wx:if="{{item.tags[0]}}">{{item.tags[0]}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 热销商品 -->
+    <view class="section hot-section">
+      <view class="section-header">
+        <view class="section-title-wrapper">
+          <view class="section-icon hot-icon">🔥</view>
+          <text class="section-title">热销商品</text>
+        </view>
+      </view>
+      <view class="section-subtitle">大家都在买</view>
+      <view class="hot-product-grid">
+        <view 
+          wx:for="{{hotProducts}}" 
+          wx:key="id"
+          class="hot-product-item"
+          bindtap="onProductTap"
+          data-item="{{item}}"
+        >
+          <view class="hot-product-image-wrapper">
+            <image class="hot-product-image" src="{{item.imageUrl}}" mode="aspectFill" />
+            <view class="hot-product-sales">已售{{item.salesText}}</view>
+          </view>
+          <view class="hot-product-info">
+            <text class="hot-product-name text-ellipsis-2">{{item.name}}</text>
+            <text class="hot-product-subtitle text-ellipsis">{{item.subtitle}}</text>
+            <view class="hot-product-bottom">
+              <view class="hot-product-price">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.price}}</text>
+              </view>
+              <view class="add-cart-btn" catchtap="onAddToCart" data-item="{{item}}">
+                <text class="add-cart-icon">+</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部安全区域 -->
+    <view class="bottom-safe-area"></view>
+  </scroll-view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-overlay">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>
